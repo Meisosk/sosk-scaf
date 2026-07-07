@@ -1,25 +1,27 @@
-import { Box, Typography } from "@mui/material";
-import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import SignIn from "./pages/SignIn";
+import Admin from "./pages/Admin";
+import WelcomePage from "./pages/WelcomePage";
 
-function App() {
+export default function App() {
   return (
-    <Box>
-      <Box
-        sx={{
-          backgroundColor: "background.default",
-          minHeight: "calc(100vh - 25px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography variant="h4" sx={{ color: "primary.main" }}>
-          Hello, sosk-scaf
-        </Typography>
-      </Box>
-      <Footer />
-    </Box>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<WelcomePage />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
-
-export default App;
