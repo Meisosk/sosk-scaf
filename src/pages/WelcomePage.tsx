@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Footer from "../components/Footer";
 import { useTrackPageView } from "../hooks/useTrackPageView";
 import { useTrackEvent } from "../hooks/useTrackEvent";
+import PermissionBanner from "../components/PermissionBanner";
 
 function WelcomePage() {
   useTrackPageView("/");
@@ -9,6 +10,7 @@ function WelcomePage() {
 
   return (
     <Box>
+      <PermissionBanner />
       <Box
         sx={{
           backgroundColor: "background.default",

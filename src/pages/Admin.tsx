@@ -10,6 +10,7 @@ import {
   TableRow,
   Grid,
   useTheme,
+  Button,
 } from "@mui/material";
 import {
   LineChart,
@@ -29,6 +30,7 @@ import {
 import { supabase } from "../lib/supabase";
 import { useAuth } from "../contexts/AuthContext";
 import { groupViewsByDay } from "../lib/analytics";
+import { useNavigate } from "react-router-dom";
 
 interface PageViewRow {
   path: string;
@@ -46,6 +48,7 @@ interface EventRow {
 export default function Admin() {
   const { user, signOut } = useAuth();
   const theme = useTheme();
+  const navigate = useNavigate();
   const [views, setViews] = useState<PageViewRow[]>([]);
   const [events, setEvents] = useState<EventRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -121,8 +124,41 @@ export default function Admin() {
 
   return (
     <Box sx={{ maxWidth: 900, mx: "auto", mt: 10, px: 2 }}>
-      <Typography variant="h5">Admin</Typography>
-      <Typography>Signed in as {user?.email}</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          mb: 1,
+        }}
+      >
+        <Box>
+          <Typography variant="h5">Admin</Typography>
+          <Typography sx={{ color: "text.secondary" }}>
+            Signed in as {user?.email}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+          }}
+        >
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ fontWeight: 700 }}
+            onClick={() => navigate("/")}
+          >
+            Home
+          </Button>
+
+          <Button variant="outlined" size="small" onClick={signOut}>
+            Sign out
+          </Button>
+        </Box>
+      </Box>
 
       {loading ? (
         <Typography>Loading analytics...</Typography>
