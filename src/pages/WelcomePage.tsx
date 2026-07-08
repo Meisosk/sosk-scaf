@@ -1,7 +1,12 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Footer from "../components/Footer";
+import { useTrackPageView } from "../hooks/useTrackPageView";
+import { useTrackEvent } from "../hooks/useTrackEvent";
 
 function WelcomePage() {
+  useTrackPageView("/");
+  const trackEvent = useTrackEvent();
+
   return (
     <Box>
       <Box
@@ -13,9 +18,19 @@ function WelcomePage() {
           justifyContent: "center",
         }}
       >
-        <Typography variant="h4" sx={{ color: "primary.main" }}>
-          Welcome to sosk-scaf!
-        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="h4" sx={{ color: "primary.main" }}>
+            Welcome to sosk-scaf!
+          </Typography>
+
+          <Button
+            onClick={() =>
+              trackEvent("cta_click", "/", { label: "Get Started" })
+            }
+          >
+            Get Started
+          </Button>
+        </Box>
       </Box>
       <Footer />
     </Box>
