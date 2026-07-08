@@ -4,10 +4,10 @@ import { useAuth } from "../contexts/AuthContext";
 import { Skeleton } from "@mui/material";
 
 export function ProtectedRoute({ children }: { children: ReactNode }) {
-  const { session, loading } = useAuth();
+  const { effectiveSession, loading } = useAuth();
 
   if (loading) return <Skeleton />;
-  if (!session) return <Navigate to="/signin" replace />;
+  if (!effectiveSession) return <Navigate to="/signin" replace />;
 
   return <>{children}</>;
 }

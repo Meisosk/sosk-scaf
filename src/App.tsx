@@ -4,6 +4,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import SignIn from "./pages/SignIn";
 import Admin from "./pages/Admin";
 import WelcomePage from "./pages/WelcomePage";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             }
           />
           <Route path="/" element={<WelcomePage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
